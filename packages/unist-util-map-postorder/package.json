@@ -1,0 +1,24 @@
+{
+  "name": "unist-util-map-postorder",
+  "version": "0.0.0",
+  "main": "./index.tsx",
+  "types": "./index.tsx",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc --build --clean && tsc --build",
+    "test": "node ./dist/test.js",
+    "lint": "eslint src/*.ts*"
+  },
+  "devDependencies": {
+    "@types/mdast": "^3.0.10",
+    "@types/node": "^18.15.3",
+    "@types/unist": "^2.0.6",
+    "eslint": "^7.32.0",
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "^4.5.2",
+    "unist-builder": "^3.0.1",
+    "unist-util-inspect": "^7.0.2"
+  }
+}
