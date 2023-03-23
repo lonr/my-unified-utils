@@ -51,7 +51,7 @@ The given function was applied in postorder traversal.
 More features:
 
 - Support replacing the original node with an array of nodes returned(E.g. replace a node by its children). Returning an empty array will delete.
-  - This feature can also be archived using `unist-util-flatmap` or `unist-util-reduce`.
+  - This feature is also provided by `unist-util-flatmap` and `unist-util-reduce`.
 - Also exported a `mapAsync` that supports async function.
 
 ## Related
