@@ -10,7 +10,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "lint": "turbo run lint"
+    "lint": "eslint ."
   },
   "dependencies": {},
   "devDependencies": {
@@ -20,6 +20,6 @@
   },
   "packageManager": "pnpm@7.29.3",
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=18.0.0"
   }
 }

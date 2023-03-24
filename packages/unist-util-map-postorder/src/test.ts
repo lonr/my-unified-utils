@@ -23,7 +23,7 @@ type Root = {
 
 type AnyNode = Root | Node | Leaf;
 
-test('map', function () {
+void test('map', function () {
   assert.deepEqual(Object.keys(mod).sort(), ['map', 'mapAsync'], 'should expose the public api');
 
   const rootA: Root = u('root', [u('node', [u('leaf', '1')]), u('leaf', '2')]);
@@ -94,7 +94,7 @@ function asIs(node: AnyNode): AnyNode {
   return node;
 }
 
-test('mapAsync', async function () {
+void test('mapAsync', async function () {
   const rootA: Root = u('root', [u('node', [u('leaf', '1')]), u('leaf', '2')]);
   assert.deepEqual(
     await mapAsync(rootA, changeLeafAsync),
@@ -153,6 +153,8 @@ test('mapAsync', async function () {
     'should support an explicitly typed `MapAsyncFunction`'
   );
 });
+
+/* eslint-disable @typescript-eslint/require-await */
 
 async function changeLeafAsync(node: AnyNode): Promise<AnyNode> {
   return node.type === 'leaf' ? Object.assign({}, node, { value: 'CHANGED' }) : node;

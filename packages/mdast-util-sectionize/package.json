@@ -1,0 +1,36 @@
+{
+  "name": "mdast-util-sectionize",
+  "version": "0.1.0",
+  "description": "mdast util to wrap each heading and the content that follows it",
+  "license": "MIT",
+  "author": "lonr",
+  "type": "module",
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "./dist/index.js",
+    "./dist/index.d.ts"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "node ./dist/test.js"
+  },
+  "dependencies": {
+    "unist-builder": "^3.0.1",
+    "unist-util-find-after": "^4.0.1",
+    "unist-util-is": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/mdast": "^3.0.10",
+    "@types/node": "^18.15.3",
+    "@types/unist": "^2.0.6",
+    "rehype-format": "^4.0.1",
+    "rehype-stringify": "^9.0.3",
+    "remark-parse": "^10.0.1",
+    "remark-rehype": "^10.1.0",
+    "to-vfile": "^7.2.4",
+    "tsconfig": "workspace:*",
+    "unified": "^10.1.2",
+    "unist-util-inspect": "^7.0.2"
+  }
+}

@@ -11,7 +11,6 @@
   ],
   "scripts": {
     "build": "tsc --build --clean && tsc --build",
-    "lint": "eslint src/*.ts*",
     "test": "node ./dist/test.js"
   },
   "devDependencies": {
