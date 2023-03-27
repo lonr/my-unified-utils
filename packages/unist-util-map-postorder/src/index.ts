@@ -6,56 +6,54 @@
 // The MIT License (MIT) Copyright (c) 2018 Andre 'Staltz' Medeiros
 
 import type { Node, Parent } from 'unist';
-
-export type MapFunction<T extends Node> = (node: T, index?: number, parent?: Parent) => T | T[];
+import { InclusiveDescendant, MapFunction, MapAsyncFunction } from './complex-types.js';
+export type { MapFunction, MapAsyncFunction };
 
 const isParent = (node: Node): node is Parent => {
   return 'children' in node;
 };
 
-export function map<T extends Node>(tree: T, mapFunction: MapFunction<T>): T {
-  const postorder: MapFunction<T> = function postorder(node, index, parent) {
+export function map<T extends Node>(tree: T, mapFunction: MapFunction<T>): InclusiveDescendant<T> {
+  const postorder: MapFunction<T> = function postorder(
+    node,
+    index?,
+    parent?
+  ): InclusiveDescendant<T> | InclusiveDescendant<T>[] {
     if (isParent(node)) {
       const mappedChildren = node.children.flatMap((child, index) =>
-        postorder(child as T, index, node)
+        postorder(child as InclusiveDescendant<T>, index, node)
       );
-      const nodeToBeMapped: T = { ...node, children: mappedChildren };
+      const nodeToBeMapped = { ...node, children: mappedChildren };
       return mapFunction(nodeToBeMapped, index, parent);
     } else {
       return mapFunction({ ...node }, index, parent);
     }
   };
 
-  const mappedTree = postorder(tree);
+  const mappedTree = postorder(tree as InclusiveDescendant<T>);
   return Array.isArray(mappedTree) ? mappedTree[0] : mappedTree;
 }
-
-export type MapAsyncFunction<T extends Node> = (
-  node: T,
-  index?: number,
-  parent?: Parent
-) => T | T[] | Promise<T | T[]>;
 
 export async function mapAsync<T extends Node>(
   tree: T,
   mapFunction: MapAsyncFunction<T>
-): Promise<T> {
-  const postorder: MapAsyncFunction<T> = async function postorder(node, index, parent) {
+): Promise<InclusiveDescendant<T>> {
+  const postorder: MapAsyncFunction<T> = async function postorder(node, index?, parent?) {
     if (isParent(node)) {
-      let mappedChildren: (T | T[])[] = [];
+      let mappedChildren: (Node | Node[])[] = [];
       for (const [index, child] of node.children.entries()) {
-        const mappedChild = await postorder(child as T, index, node);
+        const mappedChild = await postorder(child as InclusiveDescendant<T>, index, node);
         mappedChildren.push(mappedChild);
       }
-      mappedChildren = mappedChildren.flat() as T[];
-      const nodeToBeMapped: T = { ...node, children: mappedChildren.flat() };
+      mappedChildren = mappedChildren.flat();
+      const nodeToBeMapped = { ...node, children: mappedChildren.flat() };
       return await mapFunction(nodeToBeMapped, index, parent);
     } else {
-      const nodeToBeMapped: T = { ...node };
+      const nodeToBeMapped = { ...node };
       return await mapFunction(nodeToBeMapped, index, parent);
     }
   };
 
-  const mappedTree = await postorder(tree);
+  const mappedTree = await postorder(tree as InclusiveDescendant<T>);
   return Array.isArray(mappedTree) ? mappedTree[0] : mappedTree;
 }
