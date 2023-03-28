@@ -9,6 +9,7 @@
     "module": "NodeNext",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "sourceMap": true,
     "inlineSources": false,
     "isolatedModules": true,
     "noUnusedLocals": false,

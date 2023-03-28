@@ -7,7 +7,7 @@
 
 import type { Node, Parent } from 'unist';
 import { InclusiveDescendant, MapFunction, MapAsyncFunction } from './complex-types.js';
-export type { MapFunction, MapAsyncFunction };
+export type { MapFunction, MapAsyncFunction, InclusiveDescendant };
 
 const isParent = (node: Node): node is Parent => {
   return 'children' in node;
@@ -45,7 +45,6 @@ export async function mapAsync<T extends Node>(
         const mappedChild = await postorder(child as InclusiveDescendant<T>, index, node);
         mappedChildren.push(mappedChild);
       }
-      mappedChildren = mappedChildren.flat();
       const nodeToBeMapped = { ...node, children: mappedChildren.flat() };
       return await mapFunction(nodeToBeMapped, index, parent);
     } else {
