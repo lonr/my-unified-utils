@@ -31,6 +31,7 @@
     "@types/mdast": "^3.0.10",
     "@types/node": "^18.15.3",
     "@types/unist": "^2.0.6",
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "typescript": "^5.0.2"
   }
 }

@@ -51,18 +51,22 @@ export const remarkSummarize: Plugin<Configuration[], WrappedRoot, Root> = funct
           summarized.push(...(await summarizeContents(ownConent.children, headingString)));
         }
         if (subsections.length) {
-          for (const subsection of subsections) {
-            summarized.push(
-              ...(await summarizeContents(
-                // In postorder traversal, so there is no deeper subsection
-                subsection.children as Content[],
-                headingString
-              ))
-            );
-          }
+          // if (node.depth <= config.maxDepth!) {
+          summarized.push(...(subsections.flatMap((section) => section.children) as Content[]));
+          // } else {
+          //   for (const subsection of subsections) {
+          //     summarized.push(
+          //       ...(await summarizeContents(
+          //         // In postorder traversal, so there is no deeper subsection
+          //         subsection.children as Content[],
+          //         headingString
+          //       ))
+          //     );
+          //   }
+          // }
         }
-        if (node.depth <= config.maxDepth!) {
-          if (heading) {
+        if (heading) {
+          if (node.depth <= config.maxDepth!) {
             summarized.unshift(heading);
           }
         }

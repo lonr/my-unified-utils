@@ -17,10 +17,10 @@ const topic =
 
 const file = await remark()
   .use(remarkSectionize)
-  .use(remarkSummarize, { apiKey, topic, maxDepth: 3 })
+  .use(remarkSummarize, { apiKey, topic, maxDepth: 2 })
   .process(await read(fileURLToPath(new URL('../example.md', import.meta.url))));
 
-await writeFile(new URL('../output.md', import.meta.url), file.toString());
+await writeFile(new URL('../summary.md', import.meta.url), file.toString());
 
 function remarkSectionize() {
   return (tree: Root) => {

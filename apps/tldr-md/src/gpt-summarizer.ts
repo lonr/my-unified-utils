@@ -38,9 +38,11 @@ export class Summarizer {
     你将被提供这篇文章的一部分。
     ${heading ? `这部分的标题是“${heading}”。` : ''}
     请你：
-    - 缩写提供的部分
+    - 原作者的视角对提供的部分进行缩写
+    - 缩写使用 Markdown 格式
     - 提供的部分文章不一定直接得到原文的结论
-    - 不需要保留提供的标题`;
+    - 不需要保留提供的标题
+    - 使用原文的语言，不要翻译`;
     const res = await this.ai.createChatCompletion({
       model: 'gpt-3.5-turbo',
       temperature: 0.7,

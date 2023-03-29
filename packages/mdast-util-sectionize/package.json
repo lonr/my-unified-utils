@@ -30,6 +30,7 @@
     "remark-rehype": "^10.1.0",
     "to-vfile": "^7.2.4",
     "tsconfig": "workspace:*",
+    "typescript": "^5.0.2",
     "unified": "^10.1.2",
     "unist-util-inspect": "^7.0.2"
   }
